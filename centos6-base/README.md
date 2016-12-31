@@ -8,13 +8,20 @@ CentOS6を元にした、開発用サーバのベースとなるイメージ。
 
 # イメージの構築方法
 
-```bash
-cd /usr/tmp/mygreen-docker
-docker build -t mygreen/centos6-base:1.0 centos6-base/build/
-```
+1. Gitリポジトリの取得
+    ```console
+    # git clone https://github.com/mygreen/docker.git mygreen-docker
+    # cd mygreen-docker
+    ```
+
+2. Dockerイメージのビルド
+    ```console
+    # docker build -t mygreen/centos6-base:1.0 centos6-base/build/
+    ```
 
 # コンテナの起動
-```bash
-docker run -it --name mycentos6 mygreen/centos6-base:1.0 /bin/bash
+
+```console
+# docker run -it --name mycentos6 mygreen/centos6-base:1.0 /bin/bash
 ```
 
