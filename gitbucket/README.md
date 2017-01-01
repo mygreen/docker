@@ -88,9 +88,9 @@ CentOS 6を元にした、GitBucketを構築するイメージです。
 
 # Apache HTTP Serverとの連携
 ## GitBucketの設定変更
-1. GitBucketのContextを「gitbucket」に変更します。 設定ファイル「/usr/lig/gitbucket/gitbucket.conf」中のパラメータ「GITBUCKET_PREFIX」を下記のように変更します。
+1. GitBucketのContextを「gitbucket」に変更します。 設定ファイル「/usr/lib/gitbucket/gitbucket.conf」中のパラメータ「GITBUCKET_PREFIX」を下記のように変更します。
     ```properties
-    ## /usr/lig/gitbucket/gitbucket.conf
+    ## /usr/lib/gitbucket/gitbucket.conf
     # Context prefix
     GITBUCKET_PREFIX="/gitbucket"
     ```
