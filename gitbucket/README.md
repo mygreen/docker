@@ -6,6 +6,7 @@ CentOS 6を元にした、GitBucketを構築するイメージです。
 
 # イメージの構築方法
 `mygreen/centos6-base` を元に構築します。
+
 1. Gitリポジトリの取得
     ```console
     # git clone https://github.com/mygreen/docker.git mygreen-docker
@@ -36,7 +37,7 @@ CentOS 6を元にした、GitBucketを構築するイメージです。
 # アクセス方法
 1. 8080ポートをマッピングしたポートにアクセスします。
     ```
-    http://<ホスト名>:18080/
+    http://<ホスト名>:28080/
     ```
 
 2. 初期アカウントは、ユーザ名「root」、パスワード「root」です。
@@ -53,12 +54,13 @@ CentOS 6を元にした、GitBucketを構築するイメージです。
     ```
 
 - アップデート方法
-    a.サービスの停止
+
+    1.サービスの停止
     ```console
     # service gitbucket stop
     ```
 
-    b.アップデート
+    2.アップデート
     ```console
     # /usr/lib/gitbucket/update.sh
     新しいバージョンのGitBucketを入力してください(例. 4.1) > 4.8 # <= バージョン番号を入力
@@ -66,18 +68,22 @@ CentOS 6を元にした、GitBucketを構築するイメージです。
     ...アップデートが完了しました。GitBucketを起動してください。
     ```
 
-    c.サービスの起動
+    3.サービスの起動
     ```console
     # service gitbucket start
     ```
 
 
 # 設定ファイル
-- 設定ファイルの保存先
+- インストール先
     ```
-    /usr/lig/gitbucket/gitbucket.conf
+    /usr/lib/gitbucket
     ```
 
+- データの保存先
+    ```
+    /var/lib/gitbucket
+    ```
 
 
 # Apache HTTP Serverとの連携
@@ -90,14 +96,14 @@ CentOS 6を元にした、GitBucketを構築するイメージです。
     ```
 
 2. GitBucketを再起動します
-    ```bash
-    service gitbucket restart
+    ```console
+    # service gitbucket restart
     ```
 
 ## Apache HTTP Serverの設定変更
 1. ApacheにGitBucketへのプロキシを設定します。「/etc/httpd/conf.d/gitbucket.conf」を作成します。
     ```apache
-    ProxyPass         /gitbucket  http://localhost:28080/gitbucket
+    ProxyPass         /gitbucket  http://localhost:28080/gitbucket nocanon
     ProxyPassReverse  /gitbucket  http://localhost:28080/gitbucket
     ProxyRequests     Off
     AllowEncodedSlashes NoDecode
