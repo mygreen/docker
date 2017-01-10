@@ -18,7 +18,7 @@ CentOS6を元にした、Jenkinsを構築するイメージです。
 
 3. Jenkinsのイメージを構築します。
     ```console
-    # docker build -t mygreen/jenkins:1.0 jenkins/build/
+    # docker build -t mygreen/jenkins:1.0 jenkins-centos6/build/
     ```
 
 # コンテナの作成と起動

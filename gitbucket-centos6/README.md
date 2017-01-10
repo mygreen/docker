@@ -20,7 +20,7 @@ CentOS 6を元にした、GitBucketを構築するイメージです。
 
 3. GitBucketのイメージを構築します。
     ```console
-    # docker build -t mygreen/gitbucket:1.0 gitbucket/build/
+    # docker build -t mygreen/gitbucket gitbucket-centos6/build/
     ```
 
 
