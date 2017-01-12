@@ -11,7 +11,7 @@ Dockerによる各種サーバのイメージをビルドするためのDockerfi
 ## jenkins-centos6
 CentoS6をベースにした、CIサーバ「Jenkins」。
 
-## gitbucket-cento7
+## gitbucket-centos6
 CentoS6をベースにした、Gitリポジトリサーバ「GitBucket」
 
 ## base-centos7
@@ -21,10 +21,10 @@ CentoS6をベースにした、Gitリポジトリサーバ「GitBucket」
 ## jenkins-centos7
 CentoS7をベースにした、CIサーバ「Jenkins」。
 
-## gitbucket-cento7
+## gitbucket-centos7
 CentoS7をベースにした、Gitリポジトリサーバ「GitBucket」
 
-## redmine3.3-cento7
+## redmine3.3-centos7
 CentoS7をベースにした、プロジェクト管理システム「Redmine v3.3」
 
 
