@@ -9,22 +9,22 @@ Dockerによる各種サーバのイメージをビルドするためのDockerfi
 基本となるパッケージや日本語用の設定がされている。
 
 ## jenkins-centos6
-CentoS6をベースにした、CIサーバ「Jenkins」。
+CentOS6をベースにした、CIサーバ「Jenkins」。
 
 ## gitbucket-centos6
-CentoS6をベースにした、Gitリポジトリサーバ「GitBucket」
+CentOS6をベースにした、Gitリポジトリサーバ「GitBucket」
 
 ## base-centos7
 各種サーバの基本となるCentOS 7.xのイメージ。
 基本となるパッケージや日本語用の設定がされている。
 
 ## jenkins-centos7
-CentoS7をベースにした、CIサーバ「Jenkins」。
+CentOS7をベースにした、CIサーバ「Jenkins」。
 
 ## gitbucket-centos7
-CentoS7をベースにした、Gitリポジトリサーバ「GitBucket」
+CentOS7をベースにした、Gitリポジトリサーバ「GitBucket」
 
 ## redmine3.3-centos7
-CentoS7をベースにした、プロジェクト管理システム「Redmine v3.3」
+CentOS7をベースにした、プロジェクト管理システム「Redmine v3.3」
 
 
