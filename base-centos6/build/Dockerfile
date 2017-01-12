@@ -1,8 +1,8 @@
 FROM centos:centos6.8
 MAINTAINER mygreen
 
-LABEL title="mygreen/centos6-base" \
-      version="1.0" \
+LABEL title="mygreen/base" \
+      version="centos6" \
       description="This image is CentOS6.x for Server Base"
 
 # SELinux OFF
@@ -15,9 +15,8 @@ RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
 RUN yum -y groupinstall "Base" \
  && yum -y groupinstall "Development Tools" \
  && yum -y groupinstall "Japanese Support" \
- && yum install -y nkf sudo
-
-RUN yum clean all
+ && yum install -y nkf sudo \
+ && yum clean all
 
 # setup locale
 RUN localedef -f UTF-8 -i ja_JP /usr/lib/locale/ja_JP.UTF-8

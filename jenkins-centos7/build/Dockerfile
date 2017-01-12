@@ -1,11 +1,13 @@
 # Dockerfile for Jenkins
 
-FROM mygreen/base:centos6
+FROM mygreen/base:centos7
 MAINTAINER mygreen
 
 LABEL title="mygreen/jenkins" \
-      version="centos6" \
-      description="This image is Jenkins with CentOS6"
+      version="centos7" \
+      description="This image is Jenkins with CentOS 7"
+
+ENV JENKINS_HOME="/var/lib/jenkins"
 
 # install jdk
 RUN yum -y install java-1.8.0-openjdk
@@ -17,13 +19,13 @@ RUN rpm --import http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key
 RUN yum -y install jenkins
 
 # setup JENKINS_HOME
-VOLUME /var/lib/jenkins
+VOLUME $JENKINS_HOME
+RUN chown jenkins:jenkins "$JENKINS_HOME"
 
 # port
 EXPOSE 8080
 
 # setup service
-COPY templates/init.sh /usr/local/bin/init.sh
-RUN chmod u+x /usr/local/bin/init.sh
+RUN chkconfig jenkins on
 
-CMD ["/usr/local/bin/init.sh"]
+CMD ["/sbin/init"]

@@ -1,13 +1,13 @@
 # このイメージについて
 
-CentOS6を元にした、Jenkinsを構築するイメージです。
+CentOS7を元にした、Jenkinsを構築するイメージです。
 - インストールされるJenkinsは、yumでインストールしたものになります。
 
 # 前提環境
 
 |項目|値|
 |:--|:--:|
-|イメージ元のOS|CentOS6|
+|イメージ元のOS|CentOS7|
 |Jenkins|2.4.x|
 |JDK|OpenJDK 8|
 
@@ -19,14 +19,14 @@ CentOS6を元にした、Jenkinsを構築するイメージです。
     # cd mygreen-docker
     ```
 
-2. ベースとなるCentOS 6のイメージを構築します。
+2. ベースとなるCentOS 7のイメージを構築します。
     ```console
-    # docker build -t mygreen/base:centos6 base-centos6/build/
+    # docker build -t mygreen/base:centos7 base-centos7/build/
     ```
 
 3. Jenkinsのイメージを構築します。
     ```console
-    # docker build -t mygreen/jenkins:centos6 jenkins-centos6/build/
+    # docker build -t mygreen/jenkins:centos7 jenkins-centos7/build/
     ```
 
 # コンテナの作成と起動
@@ -40,7 +40,7 @@ CentOS6を元にした、Jenkinsを構築するイメージです。
 2. コンテナのポート ``8080`` をホストの任意のポートにマッピングします。下記の例では、 ``8082`` にマッピングしています。また、``$JENKINS_HOME`` となる ``/var/lib/jenkins`` をデータディレクトリとして ``-v`` でマウントします。
 
     ```console
-# docker run -it -p 8082:8080 -v /usr/local/share/jenkins:/var/lib/jenkins --name jenkins mygreen/jenkins:centos6
+    # docker run --privileged -d -p 8082:8080 -v /usr/local/share/jenkins:/var/lib/jenkins --name jenkins mygreen/jenkins:centos7
     ```
 
 3. コンテナへのログイン
@@ -48,13 +48,14 @@ CentOS6を元にした、Jenkinsを構築するイメージです。
     # docker exec -it jenkins /bin/bash
     ```
 
+
 # アクセス方法
 1. 8080ポートをマッピングしたホストのポートにアクセスします。
     ```
     http://<ホスト名>:8082/
     ```
 
-2. Jenkins2から必要となった初回アクセス時のアンロック用のパスワードを表示します。
+2. Jenkinsから必要となった初回アクセス時のアンロック用のパスワードを表示します。
     ```console
     # cat /var/lib/jenkins/secrets/initialAdminPassword
     ```
@@ -72,7 +73,7 @@ CentOS6を元にした、Jenkinsを構築するイメージです。
 
 2. Jenkinsを再起動します
     ```bash
-    service jenkins restart
+    systemctl restart jenkins
     ```
 
 ## Apache HTTP Serverの設定変更
@@ -84,21 +85,19 @@ CentOS6を元にした、Jenkinsを構築するイメージです。
     AllowEncodedSlashes NoDecode
     
     <Proxy http://localhost:8082/jenkins*>
-      Order deny,allow
-      Allow from all
+      Require all granted
     </Proxy>
     ```
 
 2. Apacheの設定ファイルが正しいか確認します。
     ```console
-    # /etc/init.d/httpd configtest
+    # service httpd configtest
     Syntax OK
     ```
 
-3. Apacheの設定ファイルを読み直します。
+3. Apacheを再起動します。
     ```console
-    # /etc/init.d/httpd reload
-    httpd を再読み込み中:
+    # systemctl restart httpd
     ```
 
 4. ブラウザからアクセスできるか確認します。

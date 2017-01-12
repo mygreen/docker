@@ -1,6 +1,6 @@
 # このイメージについて
 
-CentOS 6を元にした、GitBucketを構築するイメージです。
+CentOS 7を元にした、GitBucketを構築するイメージです。
 
 - https://github.com/gitbucket/gitbucket
 
@@ -8,7 +8,7 @@ CentOS 6を元にした、GitBucketを構築するイメージです。
 
 |項目|値|
 |:--|:--:|
-|イメージ元のOS|CentOS6|
+|イメージ元のOS|CentOS7|
 |GitBucket|4.8|
 |Java|OpenJDK 8|
 |DB|H2DB（デフォルト）|
@@ -21,26 +21,34 @@ CentOS 6を元にした、GitBucketを構築するイメージです。
     # cd mygreen-docker
     ```
 
-2. ベースとなるCentOS 6のイメージを構築します。
+2. ベースとなるCentOS 7のイメージを構築します。
     ```console
-    # docker build -t mygreen/base:centos6 base-centos6/build/
+    # docker build -t mygreen/base:centos7 base-centos7/build/
     ```
 
 3. GitBucketのイメージを構築します。
     ```console
-    # docker build -t mygreen/gitbucket:centos6 gitbucket-centos6/build/
+    # docker build -t mygreen/gitbucket:centos7 gitbucket-centos7/build/
     ```
 
 
 # コンテナの作成と起動
+1. ``$GITBUCKET_HOME`` となる ``/var/lib/gitbucket`` をデータディレクトリを事前に作成し、権限を変更しておきます。
+    ```console
+    # mkdir -p /usr/local/share/gitbucket
+    # chmod 777 /usr/local/share/gitbucket
+    ```
 
-- コンテナのポート ``8080`` をホストの任意のポートにマッピングします。下記の例では、 ``8083`` にマッピングしています。
-- ``GITBUCKET_HOME`` となる ``/var/lib/gitbucket`` をデータディレクトリとして ``-v`` でマウントします。
+2. コンテナのポート ``8080`` をホストの任意のポートにマッピングします。下記の例では、 ``8083`` にマッピングしています。また、``$GITBUCKET_HOME`` となる ``/var/lib/gitbucket`` をデータディレクトリとして ``-v`` でマウントします。
 
 ```console
-# docker run -it -p 8083:8080 -v /usr/local/share/gitbucket:/var/lib/gitbucket --name gitbucket mygreen/gitbucket:centos6
+# docker run --privileged -d -p 8083:8080 -v /usr/local/share/gitbucket:/var/lib/gitbucket --name gitbucket mygreen/gitbucket:centos7
 ```
 
+3. コンテナへのログイン
+    ```console
+    # docker exec -it gitbucket /bin/bash
+    ```
 
 # アクセス方法
 1. 8080ポートをマッピングしたホストのポートにアクセスします。
@@ -53,19 +61,19 @@ CentOS 6を元にした、GitBucketを構築するイメージです。
 # スクリプトの使い方
 - 起動方法
     ```console
-    # service gitbucket start
+    # systemctl start gitbucket
     ```
 
 - 停止方法
     ```console
-    # service gitbucket stop
+    # systemctl stop gitbucket
     ```
 
 - アップデート方法
 
     1.サービスの停止
     ```console
-    # service gitbucket stop
+    # systemctl stop gitbucket
     ```
 
     2.アップデート
@@ -78,7 +86,7 @@ CentOS 6を元にした、GitBucketを構築するイメージです。
 
     3.サービスの起動
     ```console
-    # service gitbucket start
+    # systemctl start gitbucket
     ```
 
 
@@ -105,7 +113,7 @@ CentOS 6を元にした、GitBucketを構築するイメージです。
 
 2. GitBucketを再起動します
     ```console
-    # service gitbucket restart
+    # systemctl restart gitbucket
     ```
 
 ## Apache HTTP Serverの設定変更
@@ -117,21 +125,19 @@ CentOS 6を元にした、GitBucketを構築するイメージです。
     AllowEncodedSlashes NoDecode
     
     <Proxy http://localhost:8083/gitbucket*>
-      Order deny,allow
-      Allow from all
+      Require all granted
     </Proxy>
     ```
 
 2. Apacheの設定ファイルが正しいか確認します。
     ```console
-    # /etc/init.d/httpd configtest
+    # service httpd configtest
     Syntax OK
     ```
 
-3. Apacheの設定ファイルを読み直します。
+3. Apacheを再起動します。
     ```console
-    # /etc/init.d/httpd reload
-    httpd を再読み込み中:
+    # systemctl restart httpd
     ```
 
 4. ブラウザからアクセスできるか確認します。
