@@ -1,0 +1,12 @@
+[Unit]
+Description = GitBucket Deamon
+After=network.target
+
+[Service]
+Type=forking
+ExecStart=/usr/lib/gitbucket/gitbucket.sh start
+ExecStop=/usr/lib/gitbucket/gitbucket.sh stop
+ExecReload=/usr/lib/gitbucket/gitbucket.sh reload
+
+[Install]
+WantedBy=multi-user.target

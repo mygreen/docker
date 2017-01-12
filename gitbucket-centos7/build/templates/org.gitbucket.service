@@ -1,0 +1,14 @@
+[Unit]
+Description = GitBucket Deamon
+After=network.target
+
+[Service]
+Type=forking
+#PIDFile=/var/run/gitbucket.pid
+#User=gitbucket
+#Group=gitbucket
+ExecStart=/usr/lib/gitbucket/startup.sh
+ExecStop=pkill --pidfile /var/run/gitbucket.pid
+
+[Install]
+WantedBy=multi-user.target

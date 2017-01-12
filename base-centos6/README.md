@@ -16,12 +16,12 @@ CentOS6を元にした、開発用サーバのベースとなるイメージ。
 
 2. Dockerイメージのビルド
     ```console
-    # docker build -t mygreen/centos6-base:1.0 centos6-base/build/
+    # docker build -t mygreen/base:centos6 base-centos6/build/
     ```
 
-# コンテナの起動
+# コンテナの作成と起動
 
 ```console
-# docker run -it --name mycentos6 mygreen/centos6-base:1.0 /bin/bash
+# docker run -it --name centos6-test01 mygreen/base:centos6 /bin/bash
 ```
 
