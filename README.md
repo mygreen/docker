@@ -27,4 +27,7 @@ CentOS7をベースにした、Gitリポジトリサーバ「GitBucket」
 ## redmine3.3-centos7
 CentOS7をベースにした、プロジェクト管理システム「Redmine v3.3」
 
+## redmine3.4-centos7
+CentOS7をベースにした、プロジェクト管理システム「Redmine v3.4」
+
 
