@@ -8,8 +8,8 @@ DBは、SQLiteのためコンテナ単体で動作します。
 |項目|値|
 |:--|:--:|
 |イメージ元のOS|CentOS7|
-|Redmine|3.3.2|
-|Ruby|2.2.3|
+|Redmine|3.4.2|
+|Ruby|2.4.1|
 |DB|SQLite3|
 |Web Server|Apache HTTP Server 2.4|
 
@@ -29,7 +29,7 @@ DBは、SQLiteのためコンテナ単体で動作します。
 
 3. Redmineのイメージを構築します。
     ```console
-    # docker build -t mygreen/redmine3.3:centos7 redmine3.3-centos7/build/
+    # docker build -t mygreen/redmine3.4:centos7 redmine3.4-centos7/build/
     ```
 
 # コンテナの作成と起動
@@ -37,14 +37,14 @@ DBは、SQLiteのためコンテナ単体で動作します。
 - コンテナのポート ``80`` をホストの任意のポートにマッピングします。下記の例では、 ``8081`` にマッピングしています。
 
 ```console
-# docker run --privileged -d -p 8081:80 --name redmine3.3 mygreen/redmine3.3:centos7
+# docker run --privileged -d -p 8081:80 --name redmine3.4 mygreen/redmine3.4:centos7
 
 ```
 
 - コンテナへログイン
 
 ```console
-# docker exec -it redmine3.3 /bin/bash
+# docker exec -it redmine3.4 /bin/bash
 ```
 
 # アクセス方法
@@ -66,7 +66,7 @@ DBは、SQLiteのためコンテナ単体で動作します。
 # システム情報
 
 - redmineは、 ``/var/lib/redmine`` にインストールされています。
-  - 実際には、 ``/var/lib/redmine-3.3.2`` からのシンボリックリンクになります。
+  - 実際には、 ``/var/lib/redmine-3.4.2`` からのシンボリックリンクになります。
 - apacheの設定は、 ``/etc/httpd/conf.d/redmine.conf`` で行っています。
 - サービスの再起動は、httpdに対して行います。
   - サービスの起動
@@ -88,9 +88,9 @@ DBは、SQLiteのためコンテナ単体で動作します。
 ```console
 # cd /var/lib/redmine
 # passenger-install-apache2-module --snippet
-LoadModule passenger_module /usr/local/lib/ruby/gems/2.2.0/gems/passenger-5.1.1/buildout/apache2/mod_passenger.so
+LoadModule passenger_module /usr/local/lib/ruby/gems/2.4.0/gems/passenger-5.1.7/buildout/apache2/mod_passenger.so
 <IfModule mod_passenger.c>
-  PassengerRoot /usr/local/lib/ruby/gems/2.2.0/gems/passenger-5.1.1
+  PassengerRoot /usr/local/lib/ruby/gems/2.4.0/gems/passenger-5.1.7
   PassengerDefaultRuby /usr/local/bin/ruby
 </IfModule>
 ```
