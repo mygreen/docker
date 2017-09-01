@@ -8,7 +8,7 @@ CentOS7を元にした、Jenkinsを構築するイメージです。
 |項目|値|
 |:--|:--:|
 |イメージ元のOS|CentOS7|
-|Jenkins|2.4.x|
+|Jenkins|2.x.x（インストール時点での最新版が入ります。）|
 |JDK|OpenJDK 8|
 
 # イメージの構築方法
@@ -104,3 +104,27 @@ CentOS7を元にした、Jenkinsを構築するイメージです。
     ```
     http://<ホスト名>/jenkins/
     ```
+
+# アップデート方法
+
+Jenkinsは、yumにより管理されているため、yumによりアップデートします。
+
+1. コンテナへのログイン
+    ```console
+    # docker exec -it jenkins /bin/bash
+    ```
+
+2. yumによるアップデート
+    ```console
+    # yum update jenkins
+    ```
+
+3. サービスの再起動
+    ```console
+    # systemctl restart jenkins
+    ```
+
+4. コンテナからのログアウト
+    [Ctrl]+[p]キー、[Ctrl]+[q]キーを押します。
+
+
